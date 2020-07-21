@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
-import {View, PanResponder, Animated} from 'react-native';
+import {View, PanResponder, Animated, Dimensions} from 'react-native';
+
+const screen_width = Dimensions.get('window').width;
 
 class Tinder extends Component {
   constructor(props) {
@@ -12,10 +14,29 @@ class Tinder extends Component {
       onPanResponderMove: (e, gstur) => {
         position.setValue({x: gstur.dx, y: gstur.dy});
       },
-      onPanResponderRelease: () => {},
+      onPanResponderRelease: () => {
+        this.resetPosition();
+      },
     });
 
     this.position = position;
+  }
+
+  resetPosition() {
+    Animated.spring(this.position, {
+      toValue: {x: 0, y: 0},
+    }).start();
+  }
+
+  myCardStyle() {
+    const myrotate = this.position.x.interpolate({
+      inputRange: [-screen_width, 0, screen_width],
+      outputRange: ['-120deg', '0deg', '120deg'],
+    });
+    return {
+      ...this.position.getLayout(),
+      transform: [{rotate: myrotate}],
+    };
   }
 
   rendercard() {
@@ -23,7 +44,7 @@ class Tinder extends Component {
       if (index === 0) {
         return (
           <Animated.View
-            style={this.position.getLayout()}
+            style={this.myCardStyle()}
             {...this.mypanResponder.panHandlers}>
             {this.props.renderCard(item)}
           </Animated.View>
