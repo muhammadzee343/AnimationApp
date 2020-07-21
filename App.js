@@ -1,32 +1,25 @@
 import React, {Component} from 'react';
-import {View, Text, Animated, StyleSheet, Easing} from 'react-native';
+import {View, Text, Animated, StyleSheet, Easing, Image} from 'react-native';
 import Tinder from './components/tinder';
 import {Avatar, Button, Card} from 'react-native-paper';
+import StateMan from './components/stateManagement';
 
 const mydata = [
-  {
-    id: 1,
-    text: 'card 1',
-    uri: 'https://source.unsplash.com/RDcEWH5hS...',
-  },
+  {id: 1, text: 'card 1', uri: 'https://source.unsplash.com/pJqfhKUpCh8'},
   {id: 2, text: 'card 2', uri: 'https://source.unsplash.com/pJqfhKUpCh8'},
-  {
-    id: 3,
-    text: 'card 3',
-    uri: 'https://source.unsplash.com/H601tyBZy...',
-  },
-  {id: 4, text: 'card 4', uri: 'https://source.unsplash.com/CE9YG0_Mzlw'},
-  {id: 5, text: 'card 5', uri: 'https://source.unsplash.com/-_C4UZRpoQc'},
-  {id: 6, text: 'card 6', uri: 'https://source.unsplash.com/RfoISVdKM4U'},
+  {id: 3, text: 'card 3', uri: 'https://source.unsplash.com/pJqfhKUpCh8'},
+  {id: 4, text: 'card 4', uri: 'https://source.unsplash.com/pJqfhKUpCh8'},
+  {id: 5, text: 'card 5', uri: 'https://source.unsplash.com/pJqfhKUpCh8'},
+  {id: 6, text: 'card 6', uri: 'https://source.unsplash.com/pJqfhKUpCh8'},
 ];
 
 class App extends Component {
   renderCard(item) {
     return (
-      <View>
+      <View key={item.id}>
         <Card>
           <Card.Title title={item.text} />
-          <Card.Cover source={{uri: item.uri}} />
+          <Image source={{uri: item.uri}} style={{height: 200}} />
           <Card.Actions>
             <Button>Cancel</Button>
             <Button>Ok</Button>
@@ -65,9 +58,8 @@ class App extends Component {
 
   render() {
     return (
-      <View>
-        <Tinder data={mydata} renderCard={this.renderCard} />
-      </View>
+      <Tinder data={mydata} renderCard={this.renderCard} />
+      //<StateMan />
     );
   }
 }
