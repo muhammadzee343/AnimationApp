@@ -17,7 +17,7 @@ class App extends Component {
   renderCard(item) {
     return (
       <View key={item.id}>
-        <Card>
+        <Card style={{marginBottom: 15}}>
           <Card.Title title={item.text} />
           <Image source={{uri: item.uri}} style={{height: 200}} />
           <Card.Actions>
