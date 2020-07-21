@@ -3,6 +3,8 @@ import {View, PanResponder, Animated, Dimensions} from 'react-native';
 
 const screen_width = Dimensions.get('window').width;
 
+const swipe_limit = screen_width / 3;
+
 class Tinder extends Component {
   constructor(props) {
     super(props);
@@ -14,12 +16,25 @@ class Tinder extends Component {
       onPanResponderMove: (e, gstur) => {
         position.setValue({x: gstur.dx, y: gstur.dy});
       },
-      onPanResponderRelease: () => {
-        this.resetPosition();
+      onPanResponderRelease: (e, gesture) => {
+        if (gesture.dx > swipe_limit) {
+          this.swiped('right');
+        } else if (gesture.dx < -swipe_limit) {
+          this.swiped('left');
+        } else {
+          this.resetPosition();
+        }
       },
     });
 
     this.position = position;
+  }
+
+  swiped(diraction) {
+    const X = diraction === 'right' ? screen_width * 3 : -screen_width * 3;
+    Animated.timing(this.position, {
+      toValue: {x: X, y: 0},
+    }).start();
   }
 
   resetPosition() {
