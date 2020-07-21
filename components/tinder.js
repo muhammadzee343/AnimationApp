@@ -19,19 +19,22 @@ class Tinder extends Component {
   }
 
   rendercard() {
-    return this.props.data.map((item) => {
+    return this.props.data.map((item, index) => {
+      if (index === 0) {
+        return (
+          <Animated.View
+            style={this.position.getLayout()}
+            {...this.mypanResponder.panHandlers}>
+            {this.props.renderCard(item)}
+          </Animated.View>
+        );
+      }
       return this.props.renderCard(item);
     });
   }
 
   render() {
-    return (
-      <Animated.View
-        style={this.position.getLayout()}
-        {...this.mypanResponder.panHandlers}>
-        {this.rendercard()}
-      </Animated.View>
-    );
+    return <View>{this.rendercard()}</View>;
   }
 }
 
