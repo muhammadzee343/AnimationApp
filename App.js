@@ -29,6 +29,16 @@ class App extends Component {
     );
   }
 
+  renderNoCard() {
+    return (
+      <View>
+        <Card style={{marginBottom: 15}}>
+          <Card.Title title="there is no card in list" />
+        </Card>
+      </View>
+    );
+  }
+
   myRotation() {
     rotate = this.position.x.interpolate({
       inputRange: [0, 100],
@@ -58,7 +68,11 @@ class App extends Component {
 
   render() {
     return (
-      <Tinder data={mydata} renderCard={this.renderCard} />
+      <Tinder
+        data={mydata}
+        renderCard={this.renderCard}
+        renderNoCard={this.renderNoCard}
+      />
       //<StateMan />
     );
   }

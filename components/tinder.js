@@ -9,6 +9,10 @@ class Tinder extends Component {
   constructor(props) {
     super(props);
 
+    this.state = {
+      stateIndex: 0,
+    };
+
     const position = new Animated.ValueXY();
 
     this.mypanResponder = PanResponder.create({
@@ -34,7 +38,10 @@ class Tinder extends Component {
     const X = diraction === 'right' ? screen_width * 3 : -screen_width * 3;
     Animated.timing(this.position, {
       toValue: {x: X, y: 0},
-    }).start();
+    }).start(() => {
+      this.position.setValue({x: 0, y: 0});
+      this.setState({stateIndex: this.state.stateIndex + 1});
+    });
   }
 
   resetPosition() {
@@ -55,8 +62,16 @@ class Tinder extends Component {
   }
 
   rendercard() {
+    if (this.state.stateIndex >= this.props.data.length) {
+      return this.props.renderNoCard();
+    }
+
     return this.props.data.map((item, index) => {
-      if (index === 0) {
+      if (index < this.state.stateIndex) {
+        return null;
+      }
+
+      if (index === this.state.stateIndex) {
         return (
           <Animated.View
             style={this.myCardStyle()}
