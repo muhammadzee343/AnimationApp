@@ -85,6 +85,9 @@ const styles = StyleSheet.create({
     backgroundColor: '#403a3a',
     borderRadius: 40,
   },
+  cardstyle: {
+    position: 'absolute',
+  },
 });
 
 export default App;
