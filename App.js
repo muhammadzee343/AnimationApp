@@ -3,6 +3,7 @@ import {View, Text, Animated, StyleSheet, Easing, Image} from 'react-native';
 import Tinder from './components/tinder';
 import {Avatar, Button, Card} from 'react-native-paper';
 import StateMan from './components/stateManagement';
+import FlatListImp from './components/flatList';
 
 const mydata = [
   {id: 1, text: 'card 1', uri: 'https://source.unsplash.com/pJqfhKUpCh8'},
@@ -68,12 +69,14 @@ class App extends Component {
 
   render() {
     return (
-      <Tinder
+      /*<Tinder
         data={mydata}
         renderCard={this.renderCard}
         renderNoCard={this.renderNoCard}
-      />
+      />*/
       //<StateMan />
+
+      <FlatListImp />
     );
   }
 }
